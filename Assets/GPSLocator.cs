@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.Android;
 public class GPSLocator : MonoBehaviour
 {
     public TMP_Text statusText;
@@ -14,6 +14,12 @@ public class GPSLocator : MonoBehaviour
 
     IEnumerator GPSLoc()
     {
+        if (!Permission.HasUserAuthorizedPermission(Permission.CoarseLocation))
+            Permission.RequestUserPermission(Permission.CoarseLocation);
+        if (Permission.HasUserAuthorizedPermission(Permission.CoarseLocation) && !Permission.HasUserAuthorizedPermission(Permission.FineLocation))
+            Permission.RequestUserPermission(Permission.FineLocation);
+
+        yield return new WaitForSeconds(5);
         if (!Input.location.isEnabledByUser)
         {
             statusText.text = "Location not enabled by user";
@@ -43,6 +49,7 @@ public class GPSLocator : MonoBehaviour
         }
         else
         {
+            statusText.text = "Initialization done";
             //access granted
             InvokeRepeating("UpdateGPSData", .5f, 1f);
         }
@@ -53,8 +60,7 @@ public class GPSLocator : MonoBehaviour
     {
         if (Input.location.status == LocationServiceStatus.Running)
         {
-            print(Input.location.lastData.longitude.ToString());
-            print(Input.location.lastData.latitude.ToString());
+            statusText.text = Input.location.lastData.longitude.ToString() + "   " + Input.location.lastData.latitude.ToString();
         }
         else
         {
