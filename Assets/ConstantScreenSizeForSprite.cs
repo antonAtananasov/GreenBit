@@ -18,7 +18,7 @@ public class ConstantScreenSizeForSprite : MonoBehaviour
         var size = distance * FixedSize * Camera.main.fieldOfView;
         transform.localScale = Vector3.one * size;
         //transform.forward = transform.position - Camera.transform.position;
-        sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, Mathf.Clamp(Map(transform.localScale.z, fadeDistance.x, fadeDistance.y,0,1), 0, 1));
+        //sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, Mathf.Clamp(Map(transform.localScale.z, fadeDistance.x, fadeDistance.y,0,1), 0, 1));
     }
 
     public float Map(float value, float fromMin, float fromMax, float toMin, float toMax)

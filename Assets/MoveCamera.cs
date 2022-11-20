@@ -63,9 +63,6 @@ public class MoveCamera : MonoBehaviour
             }
             oldMousePos = mousePosition;
         }
-        print(transform.position);
-        print(cameraBoundaryMin);
-        print(cameraBoundaryMax);
         Vector3 clampedPos = Vector3.one;
         clampedPos.x = Mathf.Clamp(transform.position.x, cameraBoundaryMin.x, cameraBoundaryMax.x);
         clampedPos.y = Mathf.Clamp(transform.position.y, cameraBoundaryMin.y, cameraBoundaryMax.y);

@@ -22,11 +22,13 @@ public class GPSLocator : MonoBehaviour
         yield return new WaitForSeconds(5);
         if (!Input.location.isEnabledByUser)
         {
-            statusText.text = "Location not enabled by user";
+            if (statusText != null)
+                statusText.text = "Location not enabled by user";
             yield break;
         }
 
-        statusText.text = "Starting service";
+        if (statusText != null)
+            statusText.text = "Starting service";
         Input.location.Start();
 
         int maxWait = 20;
@@ -38,18 +40,21 @@ public class GPSLocator : MonoBehaviour
 
         if (maxWait < 1)
         {
-            statusText.text = "Timeout";
+            if (statusText != null)
+                statusText.text = "Timeout";
             yield break;
         }
 
         if (Input.location.status == LocationServiceStatus.Failed)
         {
-            statusText.text = "Connection failed";
+            if (statusText != null)
+                statusText.text = "Connection failed";
             yield break;
         }
         else
         {
-            statusText.text = "Initialization done";
+            if (statusText != null)
+                statusText.text = "Initialization done";
             //access granted
             InvokeRepeating("UpdateGPSData", .5f, 1f);
         }
@@ -60,7 +65,8 @@ public class GPSLocator : MonoBehaviour
     {
         if (Input.location.status == LocationServiceStatus.Running)
         {
-            statusText.text = Input.location.lastData.longitude.ToString() + "   " + Input.location.lastData.latitude.ToString();
+            if (statusText != null)
+                statusText.text = Input.location.lastData.longitude.ToString() + "   " + Input.location.lastData.latitude.ToString();
         }
         else
         {
