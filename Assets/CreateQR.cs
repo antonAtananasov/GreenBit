@@ -9,12 +9,11 @@ public class CreateQR : MonoBehaviour
 {
 
     //Need to produce a string array of QR codes
-    string[] QrCodeStr = { "https://www.baidu.com/", "https://www.cnblogs.com/Mr-Miracle/", "https://unity3d.com/cn", "https://www.sogou.com/" };
+    public string text;
     //Display the QR code on the screen
     public RawImage image;
     //Store QR code
     Texture2D encoded;
-    int Nmuber = 0;
     // Use this for initialization
     void Start()
     {
@@ -25,15 +24,7 @@ public class CreateQR : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Btn_CreatQr();
-            Nmuber++;
-            if (Nmuber >= QrCodeStr.Length)
-            {
-                Nmuber = 0;
-            }
-        }
+
     }
 
     /// <summary>
@@ -43,6 +34,8 @@ public class CreateQR : MonoBehaviour
     /// <param name="width">width</param>
     /// <param name="height">high</param>
     /// <returns></returns>
+    /// 
+
     private static Color32[] Encode(string textForEncoding, int width, int height)
     {
         var writer = new BarcodeWriter
@@ -61,13 +54,15 @@ public class CreateQR : MonoBehaviour
     /// <summary>
     ///  Generate QR code
     /// </summary>
+    [ContextMenu("Create QR Code")]
     public void Btn_CreatQr()
     {
+        encoded = new Texture2D(256, 256);
 
-        if (QrCodeStr[Nmuber].Length > 1)
+        if (text.Length > 1)
         {
             //QR code write picture
-            var color32 = Encode(QrCodeStr[Nmuber], encoded.width, encoded.height);
+            var color32 = Encode(text, encoded.width, encoded.height);
             encoded.SetPixels32(color32);
             encoded.Apply();
             //The generated QR code image is attached to RawImage
@@ -75,7 +70,7 @@ public class CreateQR : MonoBehaviour
         }
         else
         {
-            GameObject.Find("Text_1").GetComponent<Text>().text = "No information is generated";
+            print("No information is generated");
         }
     }
 }
