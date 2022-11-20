@@ -47,7 +47,7 @@ public class QRScanner : MonoBehaviour
             }
         webCamTeture.Play();
         camTarget.texture = webCamTeture;
-        aspectFitter.aspectRatio = (float)webCamTeture.width/(float)webCamTeture.height; 
+        aspectFitter.aspectRatio = (float)webCamTeture.width/(float)webCamTeture.height;
     }
 
     public void ScanQR()
@@ -57,5 +57,10 @@ public class QRScanner : MonoBehaviour
         if (result != null)
             if (outputText != null)
                 outputText.text = result.Text;
+    }
+
+    public void RotateImageTarget()
+    {
+        camTarget.transform.Rotate(0, 0, 90);
     }
 }
