@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BinScript : MonoBehaviour
 {
+    public bool selectRandomType = true;
+    GameObject[] bins = new GameObject[] { };
     public enum BinType
     {
         Paper,
@@ -24,7 +26,10 @@ public class BinScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (selectRandomType)
+        {
+            binType = (BinType)Random.Range(0,12);
+        }
     }
 
     // Update is called once per frame
@@ -32,4 +37,5 @@ public class BinScript : MonoBehaviour
     {
         
     }
+
 }
