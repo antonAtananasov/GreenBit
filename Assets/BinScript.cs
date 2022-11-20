@@ -20,7 +20,8 @@ public class BinScript : MonoBehaviour
         Medicine,
         Petrol,
         Rubber,
-        Monitor
+        Monitor,
+        Glass
     };
     public BinType binType;
     // Start is called before the first frame update
