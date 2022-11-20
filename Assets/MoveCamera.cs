@@ -76,4 +76,9 @@ public class MoveCamera : MonoBehaviour
         transform.position = startPos;
     }
 
+    public void ScrollAmount(float amount)
+    {
+        transform.Translate(0, 0, transform.position.y * amount * scrollFraction);
+    }
+
 }

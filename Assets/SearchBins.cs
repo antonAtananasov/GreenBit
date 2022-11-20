@@ -46,7 +46,7 @@ public class SearchBins : MonoBehaviour
         }
         for (int i = 0; i < bins.Length; i++)
         {
-            SpriteRenderer sp = bins[i].GetComponentInChildren<SpriteRenderer>();
+            SpriteRenderer sp = bins[i].pin;
             sp.color = i == j ? Color.green : new Color(0, 114 / 255f, 1);
         }
     }
