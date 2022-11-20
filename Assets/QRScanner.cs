@@ -12,6 +12,8 @@ public class QRScanner : MonoBehaviour
     WebCamTexture webCamTeture;
     public float scanSpeed = 1 / 4f;
     public TMP_Text outputText;
+    public TMP_InputField inputField;
+    public bool controlAspectRatio = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +49,8 @@ public class QRScanner : MonoBehaviour
             }
         webCamTeture.Play();
         camTarget.texture = webCamTeture;
-        aspectFitter.aspectRatio = (float)webCamTeture.width/(float)webCamTeture.height;
+        if (controlAspectRatio)
+            aspectFitter.aspectRatio = (float)webCamTeture.width / (float)webCamTeture.height;
     }
 
     public void ScanQR()
@@ -55,8 +58,13 @@ public class QRScanner : MonoBehaviour
         IBarcodeReader reader = new BarcodeReader();
         Result result = reader.Decode(webCamTeture.GetPixels32(), webCamTeture.width, webCamTeture.height);
         if (result != null)
+        {
+
+            if (inputField != null)
+                inputField.text = result.Text;
             if (outputText != null)
                 outputText.text = result.Text;
+        }
     }
 
     public void RotateImageTarget()
